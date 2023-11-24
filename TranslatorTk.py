@@ -173,9 +173,10 @@ def Thai_to_Eng_Command():
         translated.clear()
 
         
-def cut_select():
+def cut_select(e):
     global selected
     if Output.selection_get():
+        selected = Output.selection_get()
 
 
 
