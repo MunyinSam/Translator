@@ -140,8 +140,6 @@ def Eng_to_Thai_Command():
     if x == count:
         sentence = ''.join(map(str, translated))     
 
-        
-        Output = Text(window, height = 1,width=50, font= ('Segoe UI', 18))
         Output.insert('1.0', sentence)
         Output.place(x=10,y=300)
         
@@ -173,11 +171,14 @@ def Thai_to_Eng_Command():
         translated.clear()
 
         
-def cut_select(e):
-    global selected
-    if Output.selection_get():
-        selected = Output.selection_get()
+def copy_text_to_clipboard(event=None):
+    # Get the selected text from the Text widget
+    selected_text = Output.get("1.0", "end-1c")
 
+    # Copy the selected text to the clipboard
+    window.clipboard_clear()
+    window.clipboard_append(selected_text)
+    window.update()
 
 
 # Welcome Text
@@ -217,9 +218,11 @@ button_2.place(x=250,y= 130)
 
 Output = Text(window, height = 1,width=50, font= ('Segoe UI', 18))
 
-button_Clear = Button(window, text='Clear and Copy', command= lambda: cut_select(False)
+button_Clear = Button(window, text='Clear and Copy', command= copy_text_to_clipboard 
                   , width = 15, font = ('Arial', 10), bg ='light gray', bd = 1, relief = RIDGE, height=2)
 button_Clear.place(x=390,y=130)
+
+button_Clear.bind("<Control-c>", copy_text_to_clipboard)
 
 
 
